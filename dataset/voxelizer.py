@@ -1,7 +1,7 @@
 # Codes are taken from BPNet, CVPR'21
 # https://github.com/wbhu/BPNet/blob/main/dataset/voxelizer.py
 
-import collections
+from collections.abc import Iterable
 import numpy as np
 from dataset.voxelization_utils import sparse_quantize
 from scipy.linalg import expm, norm
@@ -52,7 +52,7 @@ class Voxelizer:
         # 1. Random rotation
         rot_mat = np.eye(3)
         if self.use_augmentation and self.rotation_augmentation_bound is not None:
-            if isinstance(self.rotation_augmentation_bound, collections.Iterable):
+            if isinstance(self.rotation_augmentation_bound, Iterable):
                 rot_mats = []
                 for axis_ind, rot_bound in enumerate(self.rotation_augmentation_bound):
                     theta = 0

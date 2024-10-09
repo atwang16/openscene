@@ -1,12 +1,13 @@
 DATA:
-  data_root: data/scannet_3d
-  data_root_2d_fused_feature: data/scannet_multiview_openseg
+  data_root: data/scannet/scannet_3d
+  data_root_2d_fused_feature: data/scannet/scannet_multiview_openseg
   feature_2d_extractor: openseg
   classes: 20
-  aug: True
+  aug: False
   voxel_size: 0.02
   input_color: False
   use_shm: False
+  metadata_path: data/ovfgvg/scannet
   
 DISTILL:
   arch_3d: MinkUNet18A
@@ -34,7 +35,7 @@ TEST:
   split: val  # split in [train, val]
   prompt_eng: True
   mark_no_feature_to_unknown: True
-  feature_type: 'ensemble' # 'distill' | 'fusion' | 'ensemble'
+  feature_type: 'distill' # 'distill' | 'fusion' | 'ensemble'
   save_feature_as_numpy: False
   vis_input: False
   vis_pred: False
@@ -42,9 +43,10 @@ TEST:
   test_workers: 8
   test_gpu: [0]
   test_batch_size: 1
-  test_repeats: 5
+  test_repeats: 1
   model_path: 'https://cvg-data.inf.ethz.ch/openscene/models/scannet_openseg.pth.tar'
-  save_folder:
+  save_folder: '/localhome/atw7/projects/3d-ovfgvg/3d-ovfgvg/.data/cached/openscene/ovfgvg_scannet'
+  output_name: 'predictions_{}.json'
 
 Distributed:
   dist_url: tcp://127.0.0.1:6787
